@@ -17,7 +17,7 @@ module "WEB_ELB"{
   internal           = "false"
   vpc_id             = "${module.VPC.vpc_id}"
   sg_name            = "ELB_SG"
-  cidrlist           = ["37.228.192.254"]
+  cidrlist           = ["xxx.xxx.xxx.xxx"]
 }
 
 
