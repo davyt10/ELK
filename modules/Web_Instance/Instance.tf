@@ -7,6 +7,20 @@ resource "aws_instance" "instance" {
   vpc_security_group_ids    = ["${aws_security_group.SecurityGroup.id}"]
   user_data         = "${var.userdata}"
 
+  provisioner "remote-exec" {
+    script = "wait_for_instance.sh"
+
+    connection {
+      type     = "ssh"
+      user     = "ubuntu"
+      private_key = "${file("../../../../../sshkey/quest-eu-west-2.pem")}"
+    }
+  }
+
+
+provisioner "local-exec" {
+command = "ansible-playbook ${var.Ansible_boot_play} -i  ${var.Ansible_Inventory} --extra-vars 'Environment=Ansible01' "
+}
 
   lifecycle { ignore_changes = ["user_data"] }
 

@@ -1,0 +1,9 @@
+---
+- hosts: tag_Environment_{{ Environment }}
+  become: true
+
+  tasks:
+    - name: Refresh inventory to ensure new instances exist in inventory
+      meta: refresh_inventory  
+    - name: Set hostname
+      hostname: name={{ ec2_tag_Name }}

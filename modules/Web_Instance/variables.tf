@@ -9,3 +9,7 @@ variable "root_block_device" {}
 variable "sg_name" { }
 variable "vpc_id" { }
 variable "WEB_ELB_SG_ID" {}
+
+
+variable "Ansible_Inventory"{}
+variable "Ansible_boot_play"{}

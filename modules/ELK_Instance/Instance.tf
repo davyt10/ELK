@@ -8,6 +8,21 @@ resource "aws_instance" "instance" {
   user_data         = "${var.userdata}"
 
 
+  provisioner "remote-exec" {
+    script = "wait_for_instance.sh"
+
+    connection {
+      type     = "ssh"
+      user     = "ubuntu"
+      private_key = "${file("../../../../../sshkey/quest-eu-west-2.pem")}"
+    }
+  }
+
+
+provisioner "local-exec" {
+command = "ansible-playbook ${var.Ansible_boot_play} -i  ${var.Ansible_Inventory} --extra-vars 'Environment=Ansible01' "
+}
+
   root_block_device {
     volume_type = "gp2"
     volume_size = "${var.root_block_device}"
